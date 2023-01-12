@@ -5,9 +5,10 @@ const adminSchema = mongoose.Schema(
 		username: { type: String },
 		profilepic: { type: String },
 		email: { type: String },
+		package: { type: String },
 		movies: [
 			{
-				name: { type: String },
+				user: { type: String },
 				movie_name: { type: String },
 				season: { type: String },
 				episodes: { type: String },
@@ -24,7 +25,13 @@ const adminSchema = mongoose.Schema(
 				season: { type: String },
 				episodes: { type: String },
 				genre: { type: String },
-				complete: { type: Boolean, default: false },
+				iscomplete: { type: Boolean, default: false },
+			},
+		],
+		suggested: [
+			{
+				movie_name: { type: String },
+				genre: { type: String },
 			},
 		],
 		users: [

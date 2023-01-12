@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import adminRoutes from './routes/admin.js';
+import userRoutes from './routes/user.js';
 dotenv.config();
 
 const app = express();
@@ -25,6 +26,9 @@ app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
 // routes
 app.use('/', adminRoutes);
+app.use('/user/v2', userRoutes);
+//
+
 const PORT = process.env.PORT || 4000;
 mongoose.set('strictQuery', true);
 mongoose
