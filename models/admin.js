@@ -16,7 +16,6 @@ const adminSchema = mongoose.Schema(
 				genre: { type: String },
 				amount: { type: String },
 				paid: { type: String },
-				balance: { type: String },
 			},
 		],
 		latest: [
@@ -34,12 +33,7 @@ const adminSchema = mongoose.Schema(
 				genre: { type: String },
 			},
 		],
-		users: [
-			{
-				name: { type: String },
-				phone: { type: String },
-			},
-		],
+		users: ['admin'],
 		company: { type: String },
 		phone: { type: String },
 		password: { type: String },

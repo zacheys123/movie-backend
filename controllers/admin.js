@@ -18,10 +18,16 @@ export const register = async (req, res) => {
 		});
 	}
 
-	const user = await Admin.findOne({ email }); // finding user in db
+	const user1 = await Admin.findOne({ company }); //
+	const user = await Admin.findOne({ email });
+	//  finding user in db
 	if (user)
 		return res.status(400).json({
 			message: 'Email/username already in use',
+		});
+	if (user1)
+		return res.status(400).json({
+			message: 'Company name already Exist',
 		});
 
 	const newUser = new Admin({
@@ -34,7 +40,7 @@ export const register = async (req, res) => {
 	// hashing the password
 
 	const savedAdmin = await newUser.save();
-	console.log(savedAdmin);
+
 	if (savedAdmin) {
 		const token = jwt.sign(
 			{ email: savedAdmin.username, id: savedAdmin._id },
@@ -61,30 +67,34 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
 	const { email, password } = req.body;
 
-	const result = await Admin.findOne({ email: email });
+	try {
+		const result = await Admin.findOne({ email: email });
 
-	if (!result) {
-		res.status(404).json({ message: 'User Not Found' });
-	}
-	let matchpass = await bcrypt.compare(password, result.password);
-	if (matchpass) {
-		return jwt.sign(
-			{ username: result.username, id: result._id },
-			process.env.JWT_SECRET,
-			{ expiresIn: process.env.JWT_EXPIRE },
-			(err, token) => {
-				res.status(200).json({
-					success: true,
-					message: 'You have logged in successfully',
-					result,
-					token,
-				});
-			},
-		);
-	} else {
-		return res
-			.status(400)
-			.json({ success: false, message: 'Invalid password' });
+		if (!result) {
+			res.status(404).json({ message: 'User Not Found' });
+		}
+		let matchpass = await bcrypt.compare(password, result.password);
+		if (matchpass) {
+			return jwt.sign(
+				{ username: result.username, id: result._id },
+				process.env.JWT_SECRET,
+				{ expiresIn: process.env.JWT_EXPIRE },
+				(err, token) => {
+					res.status(200).json({
+						success: true,
+						message: 'You have logged in successfully',
+						result,
+						token,
+					});
+				},
+			);
+		} else {
+			return res
+				.status(400)
+				.json({ success: false, message: 'Invalid password' });
+		}
+	} catch (error) {
+		console.log(error.message);
 	}
 };
 export const getAdmins = async () => {};

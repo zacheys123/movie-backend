@@ -6,6 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import adminRoutes from './routes/admin.js';
 import userRoutes from './routes/user.js';
+import movieRoutes from './routes/movie.js';
 dotenv.config();
 
 const app = express();
@@ -27,6 +28,7 @@ app.use(express.urlencoded({ limit: '30mb', extended: true }));
 // routes
 app.use('/', adminRoutes);
 app.use('/user/v2', userRoutes);
+app.use('/movie', movieRoutes);
 //
 
 const PORT = process.env.PORT || 4000;
@@ -42,14 +44,13 @@ mongoose
 const db = mongoose.connection;
 db.on('error', (err) => console.log(err));
 db.once('open', () => console.log('Mongoose is Connected'));
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-if (process.env.NODE_ENV === 'production') {
-	app.use(
-		express.static(path.join(__dirname, 'admin_client', 'build')),
-	);
-	app.get('*', (req, res) => {
-		res.sendFile(
-			path.resolve(__dirname, 'admin_client', 'build', 'index.html'),
-		);
-	});
-}
+// const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// if (process.env.NODE_ENV === 'production') {
+// 	app.use(
+// 		express.static(path.join(__dirname, 'admin_client', 'build')),
+// 	);
+// 	app.get('*', (req, res) => {
+// 		res.sendFile(
+// 			path.resolve(__dirname, 'admin_client', 'build', 'index.html'),
+// 		);
+// 	});
