@@ -6,7 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import adminRoutes from './routes/admin.js';
 import userRoutes from './routes/user.js';
-import movieRoutes from './routes/movie.js';
+import movieRoutes from './routes/movie_route.js';
 dotenv.config();
 
 const app = express();
