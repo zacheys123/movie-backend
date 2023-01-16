@@ -33,7 +33,7 @@ const adminSchema = mongoose.Schema(
 				genre: { type: String },
 			},
 		],
-		users: [{ name: { type: String } }],
+		users: [{ username: { type: String }, phone: { type: String } }],
 		company: { type: String },
 		phone: { type: String },
 		password: { type: String },

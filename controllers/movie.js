@@ -30,17 +30,19 @@ export const getGame = async (req, res, next) => {
 export const addUser = async (req, res, next) => {
 	console.log(req.body);
 	try {
-		if (req.params.id === req.body.id) {
-			if (req.body.name) {
+		if (req.params.id) {
+			if (req.body.username || req.body.phone) {
 				const newUser = await Admin.findById(req.params.id);
-				await newUser.updateOne({ $push: { users: req.body } });
+				await newUser.updateOne({
+					$push: { users: req.body },
+				});
 
-				res.status(200).json('User Successfully Added');
+				res.status(200).json({ message: 'User Successfully Added' });
 			} else {
-				res.status(403).json('Cannot Enter Empty Inputs');
+				res.status(403).json({ message: 'All fields must entered' });
 			}
 		} else {
-			res.status(404).json('Update Your Account Only');
+			res.status(404).json({ message: 'Update Your Account Only' });
 		}
 	} catch (error) {
 		res.status(500).json(error);

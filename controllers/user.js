@@ -17,7 +17,7 @@ export const getUser = async (req, res) => {
 		console.log(userId);
 		const response = await Admin.findById(req.params.id);
 
-		res.status(200).json({ success: true, data: response });
+		res.status(200).json({ success: true, result: response });
 	} catch (error) {
 		res.status(400).json({ success: false, message: error.message });
 	}
