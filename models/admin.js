@@ -29,8 +29,7 @@ const adminSchema = mongoose.Schema(
 		],
 		suggested: [
 			{
-				movie_name: { type: String },
-				genre: { type: String },
+				suggested: { type: String },
 			},
 		],
 		users: [{ username: { type: String }, phone: { type: String } }],
