@@ -50,13 +50,13 @@ export const addUser = async (req, res, next) => {
 };
 // add new user for movies controller
 export const addSuggested = async (req, res, next) => {
-	console.log(req.body);
+	console.log(req.body.suggest);
 	try {
 		if (req.params.id) {
-			if (req.body.suggested) {
+			if (req.body.suggest) {
 				const newUser = await Admin.findById(req.params.id);
 				await newUser.updateOne({
-					$push: { suggested: req.body },
+					$push: { suggested: { suggest: req.body.suggest } },
 				});
 
 				res.status(200).json({ message: 'User Successfully Added' });

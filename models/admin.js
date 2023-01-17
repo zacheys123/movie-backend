@@ -16,6 +16,11 @@ const adminSchema = mongoose.Schema(
 				genre: { type: String },
 				amount: { type: String },
 				paid: { type: String },
+				created_at: {
+					type: String,
+					required: true,
+					default: `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
+				},
 			},
 		],
 		latest: [
@@ -29,10 +34,13 @@ const adminSchema = mongoose.Schema(
 		],
 		suggested: [
 			{
-				suggested: { type: String },
+				suggest: { type: String },
 			},
 		],
-		users: [{ username: { type: String }, phone: { type: String } }],
+		users: [
+			{ username: { type: String }, phone: { type: String } },
+			{ timestamps: true },
+		],
 		company: { type: String },
 		phone: { type: String },
 		password: { type: String },
