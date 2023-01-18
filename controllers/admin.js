@@ -2,8 +2,15 @@ import Admin from '../models/admin.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 export const register = async (req, res) => {
-	const { firstname, lastname, email, company, phone, password } =
-		req.body;
+	const {
+		firstname,
+		lastname,
+		email,
+		company,
+		phone,
+		password,
+		confirmpassword,
+	} = req.body;
 
 	if (!email || !password)
 		return res.status(400).json({
@@ -15,6 +22,12 @@ export const register = async (req, res) => {
 		return res.status(400).json({
 			success: false,
 			message: 'Password should be at least 6 characters long',
+		});
+	}
+	if (password !== confirmpassword) {
+		return res.status(400).json({
+			success: false,
+			message: 'Both Passwords should match',
 		});
 	}
 
