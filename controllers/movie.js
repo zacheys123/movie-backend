@@ -70,3 +70,27 @@ export const addSuggested = async (req, res, next) => {
 		res.status(500).json(error);
 	}
 };
+// add new user for movies controller
+export const removeUser = async (req, res, next) => {
+	const id = req.params.id;
+	console.log(id);
+	try {
+		const user = await Admin.findById(id);
+		if (!user) {
+			if (req.params.id === req.body.userId) {
+				await Admin.findByIdAndDelete({ _id: req.body.userId });
+				res
+					.status(200)
+					.json({ message: 'Successfully Deleted Account ' });
+			} else {
+				res
+					.status(404)
+					.json({ message: 'Delete Your User Account Only' });
+			}
+		} else {
+			res.status(404).json({ message: 'User does not Exist' });
+		}
+	} catch (error) {
+		res.status(500).json(error.message);
+	}
+};
