@@ -44,6 +44,11 @@ const adminSchema = mongoose.Schema(
 		company: { type: String },
 		phone: { type: String },
 		password: { type: String },
+		city: { type: String },
+		occupation: { type: String },
+		marital: { type: String },
+		package: { type: String },
+		isAdmin: { type: String, default: false },
 	},
 	{ timestamps: true },
 );
