@@ -26,9 +26,11 @@ app.use(express.json({ limit: '30mb', extended: true }));
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
 // routes
+
 app.use('/', adminRoutes);
-app.use('/user/v2', userRoutes);
+
 app.use('/movie', movieRoutes);
+app.use('/user/v2', userRoutes);
 //
 
 const PORT = process.env.PORT || 4000;
