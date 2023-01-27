@@ -67,6 +67,7 @@ export const register = async (req, res) => {
 		const message = `
 		<h2>Hello there ${firstname}</h2>
 		<br />
+		<Strong>By getting this confirmation email it shows you have registered successfully.</Strong><span>On the website you're already navigated to the package page,Choose A package That suits you better Free,Amateur,World(recomended),Premium(recomended),and you will be able to access moviehub.</span>
 <p>Welcome to the most popular and used movie management and accounting website.</p><p>We are happy to welcome you to our family,enjoy everything about moviehubz.</p>
 <p>You will be sent reminders and notifications of any updates or promotions</p>
 <h5>Regards from:</h5>
