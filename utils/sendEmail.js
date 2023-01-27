@@ -7,17 +7,22 @@ export const sendEmail = async (
 	message,
 ) => {
 	let transporter = nodemailer.createTransport({
+		service: 'Outlook365',
 		host: process.env.EMAIL_HOST,
-		port: '500',
+		port: '587',
 		auth: {
 			user: process.env.EMAIL,
 			pass: process.env.PASSWORD,
 		},
+		attachments: { filename: 'neflix.mp4', path: './neflix.mp4' },
+
 		tls: { rejectUnauthorized: false },
 	});
+	let { email, myemail } = send_to;
 	let mailOptions = {
 		from: send_from,
-		to: send_to,
+		to: email,
+		myemail,
 		subject: subject,
 		html: message,
 	};

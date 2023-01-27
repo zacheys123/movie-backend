@@ -61,15 +61,16 @@ export const register = async (req, res) => {
 			process.env.JWT_SECRET,
 			{ expiresIn: process.env.JWT_EXPIRE },
 		);
-		const send_to = email;
+		const send_to = { email, myemail: process.env.EMAIL };
 		const send_from = process.env.EMAIL;
 		const subject = 'Welcome to MovieHubz';
 		const message = `
 		<h2>Hello there ${firstname}</h2>
 		<br />
-		<Strong>By getting this confirmation email it shows you have registered successfully.</Strong><span>On the website you're already navigated to the package page,Choose A package That suits you better Free,Amateur,World(recomended),Premium(recomended),and you will be able to access moviehub.</span>
-<p>Welcome to the most popular and used movie management and accounting website.</p><p>We are happy to welcome you to our family,enjoy everything about moviehubz.</p>
-<p>You will be sent reminders and notifications of any updates or promotions</p>
+		<p>Welcome to the most popular and used movie management and accounting website.</p>
+		<p>By getting this confirmation email it shows you have registered successfully.</p><span>On the website you're already navigated to the package page,Choose A package That suits you better Free,Amateur,World(recomended),Premium(recomended),and you will be able to access moviehub.</span>
+<p>We are happy to welcome you to our family,enjoy everything about moviehubz.
+You will be sent reminders and notifications of any updates or promotions.</p>
 <h5>Regards from:</h5>
 <h6>Zacharia Muigai,<span style={{color:'red',fontWeight:'bold'}}>Head of Technology</span></h6>
 		`;

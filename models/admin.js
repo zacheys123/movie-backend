@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 const adminSchema = mongoose.Schema(
 	{
+		firstname: { type: String },
+		lastname: { type: String },
 		username: { type: String },
 		profilepic: { type: String },
 		email: { type: String },
