@@ -20,10 +20,6 @@ export const sendEmail = async (
 		to: send_to,
 		subject: subject,
 		html: message,
-		attachments: {
-			filename: 'neflix.mp4',
-			path: './neflix.mp4',
-		},
 	};
 	transporter.sendMail(mailOptions, (err, data) => {
 		if (err) {
