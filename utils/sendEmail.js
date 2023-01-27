@@ -8,7 +8,7 @@ export const sendEmail = async (
 ) => {
 	let transporter = nodemailer.createTransport({
 		host: process.env.EMAIL_HOST,
-		posrt: '500',
+		port: '500',
 		auth: {
 			user: process.env.EMAIL,
 			pass: process.env.PASSWORD,
@@ -20,6 +20,10 @@ export const sendEmail = async (
 		to: send_to,
 		subject: subject,
 		html: message,
+		attachments: {
+			filename: 'neflix.mp4',
+			path: './neflix.mp4',
+		},
 	};
 	transporter.sendMail(mailOptions, (err, data) => {
 		if (err) {
