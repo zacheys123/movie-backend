@@ -1,6 +1,7 @@
 import Admin from '../models/admin.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import { sendEmail } from '../utils/sendEmail.js';
 export const register = async (req, res) => {
 	const {
 		firstname,
@@ -60,16 +61,19 @@ export const register = async (req, res) => {
 			process.env.JWT_SECRET,
 			{ expiresIn: process.env.JWT_EXPIRE },
 		);
-		// const {
-		// 	password,
-		// 	movies,
-		// 	latest,
-		// 	suggested,
-		// 	users,
-		// 	upddatedAt,
-		// 	createdAt,
-		// 	...rest
-		// } = savedAdmin._doc;
+		const send_to = email;
+		const send_from = process.env.EMAIL;
+		const subject = 'Welcome to MovieHubz';
+		const message = `
+		<h2>Hello there ${firstname}</h2>
+		<br />
+<p>Welcome to the most popular and used movie management and accounting website.</p><p>We are happy to welcome you to our family,enjoy everything about moviehubz.</p>
+<p>You will be sent reminders and notifications of any updates or promotions</p>
+<h5>Regards from:</h5>
+<h6>Zacharia Muigai,<span style={{color:'red',fontWeight:'bold'}}>Head of Technology</span></h6>
+		`;
+		await sendEmail(subject, send_to, send_from, message);
+		console.log('Email Sent');
 		return res.status(200).json({
 			message: 'Successfully registered',
 			result: savedAdmin,
