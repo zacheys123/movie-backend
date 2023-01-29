@@ -45,6 +45,8 @@ export const register = async (req, res) => {
 		});
 
 	const newUser = new Admin({
+		firstname,
+		lastname,
 		username: `${firstname}${lastname}`,
 		email,
 		company,

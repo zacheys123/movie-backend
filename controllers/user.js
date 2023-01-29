@@ -1,7 +1,7 @@
 import Admin from '../models/admin.js';
 import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
-
+import cloudinary from '../utils/cloudinary.js';
 //  getting all users
 export const getUsers = async (req, res) => {
 	try {
@@ -16,7 +16,7 @@ export const getUsers = async (req, res) => {
 export const getUser = async (req, res) => {
 	try {
 		const { userId } = req.body;
-		console.log(userId);
+
 		const response = await Admin.findById(req.params.id);
 
 		res.status(200).json({ success: true, result: response });
@@ -43,17 +43,23 @@ export const update_user = async (req, res) => {
 		}
 
 		try {
+			console.log(alldata?.form?.imageref);
+			const uploadres = await cloudinary(
+				alldata?.form?.imageref?.current,
+			);
+
 			const user = await Admin.updateOne(
 				{ _id: userId },
 
 				{
 					$set: {
-						username: alldata?.prevData?.current.username,
-						email: alldata?.prevData?.current.email,
-						company: alldata?.prevData?.current.company,
-						marital: alldata?.prevData?.current.marital,
-						occupation: alldata?.prevData?.current.occupation,
-						city: alldata?.prevData?.current.city,
+						profilepic: uploadres,
+						username: alldata?.form?.prevData?.current.username,
+						email: alldata?.form?.prevData?.current.email,
+						company: alldata?.form?.prevData?.current.company,
+						marital: alldata?.form?.prevData?.current.marital,
+						occupation: alldata?.form?.prevData?.current.occupation,
+						city: alldata?.form?.prevData?.current.city,
 						password: passw,
 					},
 				},
