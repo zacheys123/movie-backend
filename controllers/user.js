@@ -41,19 +41,23 @@ export const update_user = async (req, res) => {
 				return res.status(500).json(err);
 			}
 		}
-
+		let uploadres = (upload) => {
+			return upload;
+		};
 		try {
-			console.log(alldata?.form?.imageref);
-			const uploadres = await cloudinary(
-				alldata?.form?.imageref?.current,
-			);
-
+			if (alldata?.form?.image) {
+				const uploadres = await cloudinary(alldata.form.image);
+				setUpload(uploadres);
+				console.log(uploadres);
+			}
 			const user = await Admin.updateOne(
 				{ _id: userId },
 
 				{
 					$set: {
-						profilepic: uploadres,
+						pic: uploadres,
+						firstname: alldata?.form?.prevData?.current.firstname,
+						lastname: alldata?.form?.prevData?.current.lastname,
 						username: alldata?.form?.prevData?.current.username,
 						email: alldata?.form?.prevData?.current.email,
 						company: alldata?.form?.prevData?.current.company,

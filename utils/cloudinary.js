@@ -10,11 +10,8 @@ cloudinaryModule.config({
 });
 
 export default async (image) => {
-	cloudinaryModule.uploader.upload(image, (err, result) => {
-		if (result && result.secure_url) {
-			console.log(result.secure_url);
-			return result.secure_url;
-		}
-		console.log(err.message);
+	const uploadres = await cloudinaryModule.uploader.upload(image, {
+		upload_preset: 'movie',
 	});
+	console.log(uploadres);
 };

@@ -5,7 +5,7 @@ const adminSchema = mongoose.Schema(
 		firstname: { type: String },
 		lastname: { type: String },
 		username: { type: String },
-		profilepic: { type: String },
+		pic: { type: String },
 		email: { type: String },
 		package: { type: String },
 		movies: [

@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import adminRoutes from './routes/admin.js';
+import fileupload from 'express-fileupload';
 import userRoutes from './routes/user.js';
 import movieRoutes from './routes/movie_route.js';
 dotenv.config();
@@ -24,7 +25,7 @@ app.use(function (req, res, next) {
 app.use(morgan('dev'));
 app.use(express.json({ limit: '30mb', extended: true }));
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
-
+app.use(fileupload({ useTempFiles: true }));
 // routes
 
 app.use('/', adminRoutes);
