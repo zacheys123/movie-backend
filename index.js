@@ -8,6 +8,7 @@ import adminRoutes from './routes/admin.js';
 import fileupload from 'express-fileupload';
 import userRoutes from './routes/user.js';
 import movieRoutes from './routes/movie_route.js';
+import musicRoutes from './routes/music_route.js';
 dotenv.config();
 
 const app = express();
@@ -31,6 +32,7 @@ app.use(fileupload({ useTempFiles: true }));
 app.use('/', adminRoutes);
 
 app.use('/movie', movieRoutes);
+app.use('/music', musicRoutes);
 app.use('/user/v2', userRoutes);
 //
 

@@ -28,7 +28,7 @@ export const getGame = async (req, res, next) => {
 
 // add new user for movies controller
 export const addUser = async (req, res, next) => {
-	console.log(req.body);
+	console.log(req.params.id);
 	try {
 		if (req.params.id) {
 			if (req.body.username || req.body.phone) {

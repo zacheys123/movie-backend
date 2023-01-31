@@ -9,6 +9,7 @@ import {
 const router = express.Router();
 
 router.route('/create/:id').put(createMovie);
+
 router.route('/newuser/:id').put(addUser);
 router.route('/remove/:id').delete(removeUser);
 router.route('/newsuggested/:id').put(addSuggested);

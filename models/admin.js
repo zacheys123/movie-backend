@@ -34,6 +34,15 @@ const adminSchema = mongoose.Schema(
 				iscomplete: { type: Boolean, default: false },
 			},
 		],
+		music: [
+			{
+				song_name: { type: String },
+				music_type: { type: String },
+				user: { type: String },
+				amount: { type: String },
+				paid: { type: String },
+			},
+		],
 		suggested: [
 			{
 				suggest: { type: String },

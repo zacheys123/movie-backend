@@ -21,7 +21,7 @@ export const sendEmail = async (
 
 	let mailOptions = {
 		from: send_from,
-		to: email,
+		to: send_to,
 
 		subject: subject,
 		html: message,
