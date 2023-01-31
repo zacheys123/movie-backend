@@ -18,11 +18,11 @@ export const sendEmail = async (
 
 		tls: { rejectUnauthorized: false },
 	});
-	let { email, myemail } = send_to;
+
 	let mailOptions = {
 		from: send_from,
 		to: email,
-		myemail,
+
 		subject: subject,
 		html: message,
 	};

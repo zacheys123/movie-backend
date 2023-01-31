@@ -62,7 +62,7 @@ export const register = async (req, res) => {
 			process.env.JWT_SECRET,
 			{ expiresIn: process.env.JWT_EXPIRE },
 		);
-		const send_to = { email, myemail: process.env.EMAIL };
+		const send_to = email;
 		const send_from = process.env.EMAIL;
 		const subject = 'Welcome to MovieHubz';
 		const message = `
