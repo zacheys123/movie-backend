@@ -5,7 +5,10 @@ const adminSchema = mongoose.Schema(
 		firstname: { type: String },
 		lastname: { type: String },
 		username: { type: String },
-		pic: { type: String },
+		pic: {
+			public_id: { type: String, required: true },
+			url: { type: String, required: true },
+		},
 		email: { type: String },
 		package: { type: String },
 		movies: [

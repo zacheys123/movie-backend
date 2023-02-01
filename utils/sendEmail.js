@@ -14,7 +14,10 @@ export const sendEmail = async (
 			user: process.env.EMAIL,
 			pass: process.env.PASSWORD,
 		},
-		attachments: { filename: 'neflix.mp4', path: './neflix.mp4' },
+		attachments: {
+			filename: 'darksouls.jpg',
+			path: './darksouls.jpg',
+		},
 
 		tls: { rejectUnauthorized: false },
 	});

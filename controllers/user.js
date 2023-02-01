@@ -30,32 +30,18 @@ export const getUser = async (req, res) => {
 export const update_user = async (req, res) => {
 	let { userId, ...alldata } = req.body;
 
-	let passw = alldata?.prevData?.current.password;
-
 	if (userId === req.params.id || req.body.isAdmin) {
-		if (passw) {
-			try {
-				const salt = await bcrypt.genSalt(10);
-				passw = await bcrypt.hash(passw, salt);
-			} catch (err) {
-				return res.status(500).json(err);
-			}
-		}
-		let uploadres = (upload) => {
-			return upload;
-		};
 		try {
-			if (alldata?.form?.image) {
-				const uploadres = await cloudinary(alldata.form.image);
-				setUpload(uploadres);
-				console.log(uploadres);
-			}
+			// const uploadres = await cloudinary(req?.body?.form?.image);
+
+			// console.log(req.body.form.image);
+
 			const user = await Admin.updateOne(
 				{ _id: userId },
 
 				{
 					$set: {
-						pic: uploadres,
+						pic: '',
 						firstname: alldata?.form?.prevData?.current.firstname,
 						lastname: alldata?.form?.prevData?.current.lastname,
 						username: alldata?.form?.prevData?.current.username,
@@ -68,9 +54,10 @@ export const update_user = async (req, res) => {
 					},
 				},
 			);
-			return res
-				.status(200)
-				.json({ message: 'Account is Updated', result: user });
+			return res.status(200).json({
+				message: 'Account is Updated Successfully',
+				result: user,
+			});
 		} catch (error) {
 			console.log(error);
 			res.status(500).json(error);
@@ -80,6 +67,70 @@ export const update_user = async (req, res) => {
 	}
 };
 
+// update password authentication controller
+
+// user update and patch delete actions
+
+export const update_pass = async (req, res) => {
+	let { userId, ...alldata } = req.body;
+
+	let passw = alldata?.prevAuth?.current.password;
+
+	if (userId === req.params.id || req.body.isAdmin) {
+		if (passw) {
+			try {
+				const salt = await bcrypt.genSalt(10);
+				passw = await bcrypt.hash(passw, salt);
+			} catch (err) {
+				return res.status(500).json(err);
+			}
+		}
+
+		try {
+			if (
+				alldata?.prevAuth?.current.password &&
+				alldata?.prevAuth?.current.confirmpassword
+			) {
+				if (
+					alldata?.prevAuth?.current.password ===
+					alldata?.prevAuth?.current.confirmpassword
+				) {
+					const user = await Admin.updateOne(
+						{ _id: userId },
+
+						{
+							$set: {
+								password: passw,
+							},
+						},
+					);
+					return res.status(200).json({
+						message: 'Password Changed Successfuly',
+						result: user,
+					});
+				} else {
+					return res.status(400).json({
+						sucess: false,
+						message:
+							'Both passwords should match,confirm password and try again',
+					});
+				}
+			} else {
+				return res.status(400).json({
+					message: 'All fields should be entered',
+					success: false,
+				});
+			}
+		} catch (error) {
+			console.log(error);
+			res.status(500).json(error);
+		}
+	} else {
+		return res.status(403).json('Update your Account Only');
+	}
+};
+
+//
 export const delete_user = async (req, res) => {
 	let { userId, ...alldata } = req.body;
 
