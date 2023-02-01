@@ -38,10 +38,12 @@ const adminSchema = mongoose.Schema(
 			{
 				song_name: { type: String },
 				music_type: { type: String },
+				count_data: { type: String, default: 1 },
 				user: { type: String },
 				amount: { type: String },
 				paid: { type: String },
 			},
+			{ timestamps: true },
 		],
 		suggested: [
 			{
