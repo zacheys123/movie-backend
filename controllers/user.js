@@ -50,7 +50,6 @@ export const update_user = async (req, res) => {
 						marital: alldata?.form?.prevData?.current.marital,
 						occupation: alldata?.form?.prevData?.current.occupation,
 						city: alldata?.form?.prevData?.current.city,
-						password: passw,
 					},
 				},
 			);
@@ -85,7 +84,7 @@ export const update_pass = async (req, res) => {
 				return res.status(500).json(err);
 			}
 		}
-
+		console.log(alldata.prevAuth.current);
 		try {
 			if (
 				alldata?.prevAuth?.current.password &&
@@ -95,19 +94,29 @@ export const update_pass = async (req, res) => {
 					alldata?.prevAuth?.current.password ===
 					alldata?.prevAuth?.current.confirmpassword
 				) {
-					const user = await Admin.updateOne(
-						{ _id: userId },
+					if (
+						alldata?.prevAuth?.current.password.length > 6 &&
+						alldata?.prevAuth?.current.confirmpassword.length > 6
+					) {
+						const user = await Admin.updateOne(
+							{ _id: userId },
 
-						{
-							$set: {
-								password: passw,
+							{
+								$set: {
+									password: passw,
+								},
 							},
-						},
-					);
-					return res.status(200).json({
-						message: 'Password Changed Successfuly',
-						result: user,
-					});
+						);
+						return res.status(200).json({
+							message: 'Password Changed Successfuly',
+							result: user,
+						});
+					} else {
+						return res.status(400).json({
+							sucess: false,
+							message: 'Password should have more than 6 characters',
+						});
+					}
 				} else {
 					return res.status(400).json({
 						sucess: false,
