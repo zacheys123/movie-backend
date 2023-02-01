@@ -86,7 +86,7 @@ You will be sent reminders and notifications of any updates or promotions.</p>
 };
 export const login = async (req, res) => {
 	const { email, password } = req.body;
-
+	console.log(req.body);
 	try {
 		const result = await Admin.findOne({ email: email });
 

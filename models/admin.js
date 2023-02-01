@@ -6,8 +6,8 @@ const adminSchema = mongoose.Schema(
 		lastname: { type: String },
 		username: { type: String },
 		pic: {
-			public_id: { type: String, required: true },
-			url: { type: String, required: true },
+			public_id: { type: String },
+			url: { type: String },
 		},
 		email: { type: String },
 		package: { type: String },
